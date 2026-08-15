@@ -15,6 +15,7 @@ import { renderExcludeFolders } from './ExcludedFoldersSettings';
 import { getFolderPathFromString } from '../functions/utils';
 import type { WhitelistedFolder } from 'src/ExcludeFolders/WhitelistFolder';
 import type { WhitelistedPattern } from 'src/ExcludeFolders/WhitelistPattern';
+import { generateId } from '../functions/generateId';
 
 export interface FolderNotesSettings {
 	syncFolderName: boolean;
@@ -160,7 +161,7 @@ export const DEFAULT_SETTINGS: FolderNotesSettings = {
 	excludeFolderDefaultSettings: {
 		type: 'folder',
 		path: '',
-		id: crypto.randomUUID(),
+		id: generateId(),
 		subFolders: true,
 		disableSync: true,
 		disableAutoCreate: true,
@@ -176,7 +177,7 @@ export const DEFAULT_SETTINGS: FolderNotesSettings = {
 	excludePatternDefaultSettings: {
 		type: 'pattern',
 		path: '',
-		id: crypto.randomUUID(),
+		id: generateId(),
 		subFolders: true,
 		disableSync: true,
 		disableAutoCreate: true,
