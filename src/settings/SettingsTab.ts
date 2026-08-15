@@ -84,6 +84,7 @@ export interface FolderNotesSettings {
 		autoUpdateLinks: boolean;
 	}
 	hideFolderNoteNameInPath: boolean;
+	fileExplorerRevealMargin: number;
 }
 
 export const DEFAULT_SETTINGS: FolderNotesSettings = {
@@ -209,6 +210,7 @@ export const DEFAULT_SETTINGS: FolderNotesSettings = {
 		autoUpdateLinks: false,
 	},
 	hideFolderNoteNameInPath: false,
+	fileExplorerRevealMargin: 4,
 };
 
 export class SettingsTab extends PluginSettingTab {

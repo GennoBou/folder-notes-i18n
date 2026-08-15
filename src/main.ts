@@ -138,13 +138,16 @@ export default class FolderNotesPlugin extends Plugin {
 			if (!openFile || !openFile.basename) { return; }
 
 			const folder = getFolder(this, openFile);
-			if (!folder) { return; }
+			if (!(folder instanceof TFolder)) { return; }
 			const excludedFolder = getExcludedFolder(this, folder.path, true);
 			if (excludedFolder?.disableFolderNote) return;
 			const folderNote = getFolderNote(this, folder.path);
 			if (!folderNote) { return; }
 			if (folderNote.path !== openFile.path) { return; }
 			setActiveFolder(folder.path, this);
+			if (!excludedFolder?.showFolderNote) {
+				this.revealFolderNoteInExplorer(folder, folderNote.path);
+			}
 		}));
 
 		this.registerEvent(this.app.vault.on('create', (file: TAbstractFile) => {
@@ -221,7 +224,6 @@ export default class FolderNotesPlugin extends Plugin {
 		registerFileExplorerObserver(this);
 
 		const fileExplorer = getFileExplorer(this);
-		// @ts-expect-error use internal API
 		const infinityScroll = fileExplorer?.view?.tree?.infinityScroll;
 
 		if (infinityScroll) {
@@ -257,11 +259,11 @@ export default class FolderNotesPlugin extends Plugin {
 
 		const fileExplorerPlugin = this.app.internalPlugins.getEnabledPluginById('file-explorer');
 		if (fileExplorerPlugin) {
-			const fileExplorer = fileExplorerPlugin as unknown as FileExplorerPluginLike;
+			const fileExplorerInstance = fileExplorerPlugin as unknown as FileExplorerPluginLike;
 			const originalRevealInFolder =
-				(fileExplorer.revealInFolder as unknown as FileExplorerPluginLike['revealInFolder'])
-					.bind(fileExplorer);
-			fileExplorer.revealInFolder = (file: TAbstractFile): void => {
+				(fileExplorerInstance.revealInFolder as unknown as FileExplorerPluginLike['revealInFolder'])
+					.bind(fileExplorerInstance);
+			fileExplorerInstance.revealInFolder = (file: TAbstractFile): void => {
 				if (file instanceof TFile) {
 					const folder = getFolder(this, file);
 					if (folder instanceof TFolder) {
@@ -270,12 +272,16 @@ export default class FolderNotesPlugin extends Plugin {
 							originalRevealInFolder(file);
 							return;
 						}
-						activeDocument.body.classList.remove('hide-folder-note');
+						const excludedFolder = getExcludedFolder(this, folder.path, true);
+						if (
+							!this.settings.hideFolderNote ||
+							excludedFolder?.showFolderNote ||
+							excludedFolder?.disableFolderNote
+						) {
+							originalRevealInFolder(file);
+							return;
+						}
 						originalRevealInFolder(folder);
-						const FOLDER_REVEAL_DELAY = 100;
-						window.setTimeout(() => {
-							activeDocument.body.classList.add('hide-folder-note');
-						}, FOLDER_REVEAL_DELAY);
 						return;
 					}
 				}
@@ -344,6 +350,40 @@ export default class FolderNotesPlugin extends Plugin {
 		}
 	}
 
+	private revealFolderNoteInExplorer(folder: TFolder, folderNotePath: string): void {
+		if (!this.settings.hideFolderNote) return;
+		const fileExplorerView = getFileExplorer(this)?.view;
+		if (!fileExplorerView?.autoRevealFile) return;
+		const { defaultView } = fileExplorerView.containerEl.ownerDocument;
+		if (!defaultView) return;
+		const folderNoteIsStillActive = (): boolean =>
+			this.app.workspace.getActiveFile()?.path === folderNotePath;
+
+		defaultView.requestAnimationFrame(() => {
+			if (!folderNoteIsStillActive()) return;
+
+			const ancestors: TFolder[] = [];
+			let { parent } = folder;
+			while (parent && !parent.isRoot()) {
+				ancestors.unshift(parent);
+				({ parent } = parent);
+			}
+			for (const ancestor of ancestors) {
+				fileExplorerView.fileItems?.[ancestor.path]?.setCollapsed?.(false);
+			}
+
+			defaultView.requestAnimationFrame(() => {
+				if (!folderNoteIsStillActive()) return;
+				const folderItem = fileExplorerView.fileItems?.[folder.path];
+				if (!folderItem) return;
+				fileExplorerView.tree.infinityScroll?.scrollIntoView(
+					folderItem,
+					this.settings.fileExplorerRevealMargin,
+				);
+			});
+		});
+	}
+
 	handleVaultChange(): void {
 		if (!this.settings.fvGlobalSettings.autoUpdateLinks) return;
 		const DEBOUNCE_DELAY = 2000;
@@ -393,7 +433,7 @@ export default class FolderNotesPlugin extends Plugin {
 		const folderTitleEl = target.closest('.nav-folder-title');
 		const onlyClickedOnFolderTitle = !!target.closest('.nav-folder-title-content');
 		return {
-			folderTitleEl: folderTitleEl instanceof HTMLElement ? folderTitleEl : null,
+			folderTitleEl: folderTitleEl?.instanceOf(HTMLElement) ? folderTitleEl : null,
 			onlyClickedOnFolderTitle,
 		};
 	}
