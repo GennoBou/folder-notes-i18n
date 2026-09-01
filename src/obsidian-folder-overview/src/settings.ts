@@ -1,4 +1,4 @@
-import { t } from '../../i18n';
+import { t, tDom } from '../../i18n';
 ﻿import {
 	normalizePath, PluginSettingTab,
 	Setting, TFolder,
@@ -81,10 +81,7 @@ export class SettingsTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName(t('Auto-update links without opening the overview'))
-			.setDesc(
-				'If enabled, the links that appear in the graph view will be ' +
-				'updated even when you don\'t have the overview open somewhere.',
-			)
+			.setDesc(t('If enabled the links tha...#31993e'))
 			.addToggle((toggle) =>
 				toggle
 					.setValue(this.plugin.settings.globalSettings.autoUpdateLinks)
@@ -168,10 +165,7 @@ export async function createOverviewSettings(
 	createOrReplaceSetting(contentEl, 'auto-sync', changedSection, (settingEl) => {
 		new Setting(settingEl)
 			.setName(t('Auto sync'))
-			.setDesc(
-				'Choose if the overview should automatically update when you ' +
-				'delete, create or rename a file/folder',
-			)
+			.setDesc(t('Choose if the overview s...#2b119a'))
 			.addToggle((toggle) =>
 				toggle
 					.setValue(yaml.autoSync)
@@ -246,9 +240,7 @@ export async function createOverviewSettings(
 			.setDesc(
 				createFragment((frag) => {
 					const link = frag.createEl('a', {
-						text:
-							'Find more information about the title in the documentation. ' +
-							'There is also a list of variables you can use',
+						text: t('Find more information ab...#d0653c'),
 						href:
 							'https://lostpaul.github.io/obsidian-folder-notes/Folder%20overview/#title',
 					});
@@ -301,18 +293,14 @@ export async function createOverviewSettings(
 		const folderPathSetting = new Setting(settingEl)
 			.setName(t('Folder path for the overview'))
 			.setDesc(
-				createFragment((frag) => {
-					frag.appendText(
-						'The overview will show the subfolders and files of the ' +
-						'folder you choose here. ',
-					);
-					const link = frag.createEl('a', {
+				(() => {
+					const link = createEl('a', {
 						text: t('Find more information ab...#5dd520'),
-						href:
-							'https://lostpaul.github.io/obsidian-folder-notes/Folder%20overview/#folder-path',
+						href: 'https://lostpaul.github.io/obsidian-folder-notes/Folder%20overview/#folder-path',
 					});
 					link.target = '_blank';
-				}),
+					return tDom('The overview will show t...#8279b0', { link });
+				})(),
 			)
 			.addSearch((search) => {
 				new FolderSuggest(search.inputEl, plugin, false);
@@ -348,11 +336,7 @@ export async function createOverviewSettings(
 	createOrReplaceSetting(contentEl, 'use-actual-links', changedSection, (settingEl) => {
 		new Setting(settingEl)
 			.setName(t('Use actual links'))
-			.setDesc(
-				'Choose if the links in the overview should be showed in the graph view. ' +
-				'This requires a second list under the actual overview and which is ' +
-				'hidden by default.',
-			)
+			.setDesc(t('Choose if the links in t...#c1a887'))
 			.addToggle((toggle) =>
 				toggle
 					.setValue(yaml.useActualLinks)
@@ -402,10 +386,7 @@ export async function createOverviewSettings(
 	createOrReplaceSetting(contentEl, 'hide-folder-overview', changedSection, (settingEl) => {
 		const hideOverviewSeting = new Setting(settingEl)
 			.setName(t('Hide folder overview'))
-			.setDesc(
-				'Choose if the folder overview should be hidden and instead only ' +
-				'the link list should be shown',
-			)
+			.setDesc(t('Choose if the folder ove...#5a0198'))
 			.addToggle((toggle) =>
 				toggle
 					.setValue(yaml.hideFolderOverview)
@@ -567,10 +548,7 @@ export async function createOverviewSettings(
 	createOrReplaceSetting(contentEl, 'show-folder-notes', changedSection, (settingEl) => {
 		new Setting(settingEl)
 			.setName(t('Show folder notes'))
-			.setDesc(
-				'Choose if folder notes (the note itself and not the folder name) ' +
-				'should be shown in the overview',
-			)
+			.setDesc(t('Choose if folder notes t...#9125b4'))
 			.addToggle((toggle) =>
 				toggle
 					.setValue(yaml.showFolderNotes)
@@ -645,11 +623,7 @@ export async function createOverviewSettings(
 	createOrReplaceSetting(contentEl, 'show-empty-folders', changedSection, (settingEl) => {
 		new Setting(settingEl)
 			.setName(t('Show folder names of fol...#03b90a'))
-			.setDesc(
-				'Show the names of folders that appear to have no files/folders in ' +
-				'the folder overview. That\'s mostly the case when you set the file ' +
-				'depth to 1.',
-			)
+			.setDesc(t('Show the names of folder...#4c68bd'))
 			.addToggle((toggle) => {
 				toggle
 					.setValue(yaml.showEmptyFolders)
@@ -693,10 +667,7 @@ export async function createOverviewSettings(
 	createOrReplaceSetting(contentEl, 'disable-collapse-icon', changedSection, (settingEl) => {
 		new Setting(settingEl)
 			.setName(t('Disable collapse icon for folder notes'))
-			.setDesc(
-				'Remove the collapse icon next to the folder name for folder notes ' +
-				'when they only contain the folder note itself',
-			)
+			.setDesc(t('Remove the collapse icon...#7bae17'))
 			.addToggle((toggle) => {
 				toggle
 					.setValue(yaml.disableCollapseIcon)
@@ -714,10 +685,7 @@ export async function createOverviewSettings(
 	createOrReplaceSetting(contentEl, 'store-collapse-condition', changedSection, (settingEl) => {
 		new Setting(settingEl)
 			.setName(t('Store collapsed condition'))
-			.setDesc(
-				'Choose if the collapsed condition should be stored until you ' +
-				'restart Obsidian',
-			)
+			.setDesc(t('Choose if the collapsed...#8744fa'))
 			.addToggle((toggle) =>
 				toggle
 					.setValue(yaml.storeFolderCondition)
@@ -753,10 +721,7 @@ export async function createOverviewSettings(
 	createOrReplaceSetting(contentEl, 'fmtp-integration', changedSection, (settingEl) => {
 		new Setting(settingEl)
 			.setName(t('Front Matter Title Plugin integration'))
-			.setDesc(
-				'Replace the folder/file name with the title from the Front Matter ' +
-				'Title Plugin. This requires the plugin to be installed and enabled.',
-			)
+			.setDesc(t('Replace the folder file...#d10ca3'))
 			.addToggle((toggle) =>
 				toggle
 					.setValue(yaml.fmtpIntegration)

@@ -357,5 +357,8 @@
   "Choose if the collapsed...#8744fa": "Obsidian を再起動するまでフォルダの折りたたみ状態を保持するかどうかを選択します",
   "Pattern": "パターン",
   "Default": "デフォルト",
-  "Allows you to use the li...#11733a": "{link} をフォルダノートと連携して使用できるようにします。フロントマターに設定した名前をフォルダ名として表示できます。"
+  "Allows you to use the li...#11733a": "{link} をフォルダノートと連携して使用できるようにします。フロントマターに設定した名前をフォルダ名として表示できます。",
+  "The overview will show t...#8279b0": "ここで選択したフォルダのサブフォルダとファイルが概要に表示されます。{link}",
+  "Replace the folder file...#bbb1e3": "Front Matter Title プラグインが有効でフロントマターにタイトルがある場合、フォルダ／ファイル名をフロントマターのタイトルに置き換えます",
+  "Replace the folder file...#d10ca3": "フォルダ／ファイル名を Front Matter Title プラグインのタイトルに置き換えます。この機能を使用するには該当プラグインがインストールされ有効化されている必要があります。"
 }
