@@ -1,4 +1,4 @@
-import { t } from './i18n';
+import { t, initLocalizeJson } from './i18n';
 import {
 	type App, type TAbstractFile,
 	type MarkdownPostProcessorContext,
@@ -92,6 +92,7 @@ export default class FolderNotesPlugin extends Plugin {
 
 	async onload(): Promise<void> {
 		console.debug('loading folder notes plugin');
+		await initLocalizeJson(this.app, this.manifest);
 		await this.loadSettings();
 		this.settingsTab = new SettingsTab(this.app, this);
 		this.addSettingTab(this.settingsTab);
