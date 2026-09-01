@@ -1,7 +1,7 @@
 {
   "id": "folder-notes-i18n",
   "name": "Folder notes (i18n)",
-  "version": "26.9.2",
+  "version": "26.9.2.1",
   "minAppVersion": "1.4.10",
   "description": "Create notes within folders that can be accessed without collapsing the folder, similar to the functionality offered in Notion. (i18n / Japanese localization supported)",
   "author": "Lost Paul",

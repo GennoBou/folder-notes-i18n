@@ -97,7 +97,7 @@ export function addExcludePatternListItem(
 	setting.setClass('fn-exclude-folder-list');
 	setting.addSearch((cb) => {
 		cb.containerEl.addClass('fn-exclude-folder-path');
-		cb.setPlaceholder('Pattern');
+		cb.setPlaceholder(t('Pattern'));
 		cb.setValue(pattern.string);
 		cb.onChange((value) => {
 			pattern.string = value;

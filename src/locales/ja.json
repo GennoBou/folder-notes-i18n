@@ -340,5 +340,21 @@
   "Front Matter Title Plugin integration": "Front Matter Title プラグイン連携",
   "Indexing files for folder overview plugin...": "フォルダ概要プラグイン用ファイルをインデックス中...",
   "Indexed files for folder overview plugin.": "フォルダ概要プラグイン用ファイルのインデックスが完了しました。",
-  "Select overview": "概要を選択"
+  "Select overview": "概要を選択",
+  "Explorer": "エクスプローラー",
+  "Folder": "フォルダ",
+  "PDF": "PDF",
+  "Image": "画像",
+  "Audio": "音声",
+  "Video": "動画",
+  "All other file types": "その他のすべてのファイル形式",
+  "All file types": "すべてのファイル形式",
+  "Choose if folder notes t...#9125b4": "概要内にフォルダノート（フォルダ名ではなくノート自体）を表示するかどうかを選択します",
+  "Created": "作成日時",
+  "Modified": "更新日時",
+  "Show the names of folder...#4c68bd": "フォルダ概要でファイルやフォルダが存在しないように見える空フォルダの名前を表示します（ファイル深度を 1 に設定した場合などに該当します）。",
+  "Remove the collapse icon...#7bae17": "フォルダ内にフォルダノートのみが含まれている場合、フォルダ名の横の折りたたみアイコンを削除します",
+  "Choose if the collapsed...#8744fa": "Obsidian を再起動するまでフォルダの折りたたみ状態を保持するかどうかを選択します",
+  "Pattern": "パターン",
+  "Default": "デフォルト"
 }

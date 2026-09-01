@@ -134,7 +134,7 @@ export class FolderOverviewView extends ItemView {
 						cb.addOptions(options);
 					}
 
-					cb.addOption('default', 'Default');
+					cb.addOption('default', t('Default'));
 					cb.setValue(yaml?.id ?? 'default');
 					const isDefault = cb.getValue() === 'default';
 					const isYamlIdEmpty = !yaml?.id.trim();

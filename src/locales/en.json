@@ -340,5 +340,21 @@
   "Front Matter Title Plugin integration": "Front Matter Title Plugin integration",
   "Indexing files for folder overview plugin...": "Indexing files for folder overview plugin...",
   "Indexed files for folder overview plugin.": "Indexed files for folder overview plugin.",
-  "Select overview": "Select overview"
+  "Select overview": "Select overview",
+  "Explorer": "Explorer",
+  "Folder": "Folder",
+  "PDF": "PDF",
+  "Image": "Image",
+  "Audio": "Audio",
+  "Video": "Video",
+  "All other file types": "All other file types",
+  "All file types": "All file types",
+  "Choose if folder notes t...#9125b4": "Choose if folder notes (the note itself and not the folder name) should be shown in the overview",
+  "Created": "Created",
+  "Modified": "Modified",
+  "Show the names of folder...#4c68bd": "Show the names of folders that appear to have no files/folders in the folder overview. That's mostly the case when you set the file depth to 1.",
+  "Remove the collapse icon...#7bae17": "Remove the collapse icon next to the folder name for folder notes when they only contain the folder note itself",
+  "Choose if the collapsed...#8744fa": "Choose if the collapsed condition should be stored until you restart Obsidian",
+  "Pattern": "Pattern",
+  "Default": "Default"
 }

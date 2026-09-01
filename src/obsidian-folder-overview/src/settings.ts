@@ -456,8 +456,8 @@ export async function createOverviewSettings(
 			.setDesc(t('Choose the style of the overview (grid style soon)'))
 			.addDropdown((dropdown) =>
 				dropdown
-					.addOption('list', 'List')
-					.addOption('explorer', 'Explorer')
+					.addOption('list', t('List'))
+					.addOption('explorer', t('Explorer'))
 					.setValue(yaml?.style || 'list')
 					.onChange((value: string) => {
 						yaml.style = value as 'list' | 'explorer';
@@ -505,15 +505,15 @@ export async function createOverviewSettings(
 					(type: string) => type.toLowerCase(),
 				) as includeTypes[];
 				const options = [
-					{ value: 'markdown', label: 'Markdown' },
-					{ value: 'folder', label: 'Folder' },
-					{ value: 'canvas', label: 'Canvas' },
-					{ value: 'pdf', label: 'PDF' },
-					{ value: 'image', label: 'Image' },
-					{ value: 'audio', label: 'Audio' },
-					{ value: 'video', label: 'Video' },
-					{ value: 'other', label: 'All other file types' },
-					{ value: 'all', label: 'All file types' },
+					{ value: 'markdown', label: t('Markdown') },
+					{ value: 'folder', label: t('Folder') },
+					{ value: 'canvas', label: t('Canvas') },
+					{ value: 'pdf', label: t('PDF') },
+					{ value: 'image', label: t('Image') },
+					{ value: 'audio', label: t('Audio') },
+					{ value: 'video', label: t('Video') },
+					{ value: 'other', label: t('All other file types') },
+					{ value: 'all', label: t('All file types') },
 				];
 
 				options.forEach((option) => {
@@ -611,9 +611,9 @@ export async function createOverviewSettings(
 			.setDesc(t('Choose how the files should be sorted'))
 			.addDropdown((dropdown) =>
 				dropdown
-					.addOption('name', 'Name')
-					.addOption('created', 'Created')
-					.addOption('modified', 'Modified')
+					.addOption('name', t('Name'))
+					.addOption('created', t('Created'))
+					.addOption('modified', t('Modified'))
 					.setValue(yaml?.sortBy || 'name')
 					.onChange(async (value: string) => {
 						yaml.sortBy = value as 'name' | 'created' | 'modified';
@@ -625,8 +625,8 @@ export async function createOverviewSettings(
 			)
 			.addDropdown((dropdown) => {
 				dropdown
-					.addOption('desc', 'Descending')
-					.addOption('asc', 'Ascending');
+					.addOption('desc', t('Descending'))
+					.addOption('asc', t('Ascending'));
 				if (yaml.sortByAsc) {
 					dropdown.setValue('asc');
 				} else {
