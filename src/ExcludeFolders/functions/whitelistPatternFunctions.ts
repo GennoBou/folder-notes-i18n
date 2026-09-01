@@ -175,7 +175,7 @@ export function addWhitelistedPatternListItem(
 
 	setting.addButton((cb) => {
 		cb.setIcon('trash-2');
-		cb.setTooltip('Delete pattern');
+		cb.setTooltip(t('Delete pattern'));
 		cb.onClick(() => {
 			void deletePattern(plugin, pattern);
 			setting.clear();

@@ -1,6 +1,6 @@
 {
 	"name": "folder-notes-i18n",
-	"version": "26.9.2.3",
+	"version": "26.9.2.4",
 	"description": "Adds Folder Notes to the default file tree.",
 	"main": "main.js",
 	"scripts": {

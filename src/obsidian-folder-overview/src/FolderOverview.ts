@@ -1,3 +1,4 @@
+import { t } from '../../i18n';
 import {
 	type TAbstractFile,
 	type MarkdownPostProcessorContext,
@@ -365,7 +366,7 @@ export class FolderOverview {
 			sourceFolderPath !== '/' &&
 			sourceFolderPath !== ''
 		) {
-			new Notice("Folder overview: Couldn't find the folder");
+			new Notice(t('Folder overview Couldn t...#6e2286'));
 			return false;
 		}
 		if (!sourceFolder && sourceFolderPath === '') {
@@ -442,7 +443,7 @@ export class FolderOverview {
 		const fileMenu = new Menu();
 
 		fileMenu.addItem((item) => {
-			item.setTitle('Edit folder overview');
+			item.setTitle(t('Edit folder overview'));
 			item.setIcon('pencil');
 			item.onClick(async () => {
 				new FolderOverviewSettings(
@@ -490,7 +491,7 @@ export class FolderOverview {
 		const folderMenu = new Menu();
 
 		folderMenu.addItem((item) => {
-			item.setTitle('Edit folder overview');
+			item.setTitle(t('Edit folder overview'));
 			item.setIcon('pencil');
 			item.onClick(async () => {
 				new FolderOverviewSettings(
@@ -506,7 +507,7 @@ export class FolderOverview {
 		folderMenu.addSeparator();
 
 		folderMenu.addItem((item) => {
-			item.setTitle('Rename');
+			item.setTitle(t('Rename'));
 			item.setIcon('pencil');
 			item.onClick(async () => {
 				if (plugin instanceof FolderNotesPlugin) {
@@ -516,7 +517,7 @@ export class FolderOverview {
 		});
 
 		folderMenu.addItem((item) => {
-			item.setTitle('Delete');
+			item.setTitle(t('Delete'));
 			item.setIcon('trash');
 			item.dom.addClass('is-warning');
 			item.dom.setAttribute('data-section', 'danger');
@@ -540,7 +541,7 @@ export class FolderOverview {
 		const menu = new Menu();
 
 		menu.addItem((item) => {
-			item.setTitle('Edit folder overview');
+			item.setTitle(t('Edit folder overview'));
 			item.setIcon('pencil');
 			item.onClick(async () => {
 				new FolderOverviewSettings(

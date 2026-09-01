@@ -360,5 +360,6 @@
   "Allows you to use the li...#11733a": "Allows you to use the {link} with folder notes. It allows you to set the folder name to some name you set in the front matter.",
   "The overview will show t...#8279b0": "The overview will show the subfolders and files of the folder you choose here. {link}",
   "Replace the folder file...#bbb1e3": "Replace the folder/file name with the title from the Front Matter Title Plugin when the plugin is enabled and the note has a title in the front matter",
-  "Replace the folder file...#d10ca3": "Replace the folder/file name with the title from the Front Matter Title Plugin. This requires the plugin to be installed and enabled."
+  "Replace the folder file...#d10ca3": "Replace the folder/file name with the title from the Front Matter Title Plugin. This requires the plugin to be installed and enabled.",
+  "Folder overview Couldn t...#6e2286": "Folder overview: Couldn't find the folder"
 }

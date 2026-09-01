@@ -159,14 +159,14 @@ export function addWhitelistFolderListItem(
 
 	new ButtonComponent(buttonContainer)
 		.setIcon('edit')
-		.setTooltip('Edit folder note')
+		.setTooltip(t('Edit folder note'))
 		.onClick(() => {
 			new WhitelistFolderSettings(plugin.app, plugin, whitelistedFolder).open();
 		});
 
 	new ButtonComponent(buttonContainer)
 		.setIcon('up-chevron-glyph')
-		.setTooltip('Move up')
+		.setTooltip(t('Move up'))
 		.onClick(() => {
 			if (whitelistedFolder.position === 0) { return; }
 			whitelistedFolder.position -= 1;
@@ -187,7 +187,7 @@ export function addWhitelistFolderListItem(
 
 	new ButtonComponent(buttonContainer)
 		.setIcon('down-chevron-glyph')
-		.setTooltip('Move down')
+		.setTooltip(t('Move down'))
 		.onClick(() => {
 			if (whitelistedFolder.position === plugin.settings.whitelistFolders.length - 1) {
 				return;
@@ -212,7 +212,7 @@ export function addWhitelistFolderListItem(
 
 	new ButtonComponent(buttonContainer)
 		.setIcon('trash-2')
-		.setTooltip('Delete excluded folder')
+		.setTooltip(t('Delete excluded folder'))
 		.onClick(() => {
 			void deleteWhitelistedFolder(plugin, whitelistedFolder);
 			setting.clear();

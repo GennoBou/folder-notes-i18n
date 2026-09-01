@@ -47,7 +47,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 		)
 		.addButton((button) =>
 			button
-				.setButtonText('Rename existing folder notes')
+				.setButtonText(t('Rename existing folder notes'))
 				.setCta()
 				.onClick(async () => {
 					new RenameFolderNotesModal(
@@ -183,7 +183,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 	} else {
 		setting0.addButton((button) =>
 			button
-				.setButtonText('Add custom file type')
+				.setButtonText(t('Add custom file type'))
 				.setCta()
 				.onClick(async () => {
 					new AddSupportedFileModal(
@@ -240,7 +240,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 		)
 		.addButton((button) =>
 			button
-				.setButtonText('Switch')
+				.setButtonText(t('Switch'))
 				.setCta()
 				.onClick(async () => {
 					let oldStorageLocation = settingsTab.plugin.settings.storageLocation;
