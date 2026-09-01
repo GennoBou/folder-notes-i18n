@@ -1,12 +1,13 @@
 {
-	"name": "folder-notes",
-	"version": "1.0.1",
+	"name": "folder-notes-i18n",
+	"version": "26.9.2",
 	"description": "Adds Folder Notes to the default file tree.",
 	"main": "main.js",
 	"scripts": {
 		"fn-dev": "node esbuild.config.mjs",
 		"dev": "npm run fn-dev",
 		"fn-build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+		"build": "npm run fn-build",
 		"fv-build": "tsc -noEmit -skipLibCheck && node ./src/obsidian-folder-overview/esbuild.config.mjs production",
 		"version": "node version-bump.mjs && git add manifest.json versions.json",
 		"folder-overview": "node ./src/obsidian-folder-overview/esbuild.config.mjs",
