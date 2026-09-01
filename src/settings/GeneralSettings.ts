@@ -1,4 +1,4 @@
-import { t } from 'src/i18n';
+import { t, tDom } from 'src/i18n';
 
 /* eslint-disable max-len */
 import { Setting, Platform } from 'obsidian';
@@ -483,17 +483,14 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 
 	settingsTab.settingsPage.createEl('h3', { text: t('Integration & compatibility') });
 
-	const desc1 = document.createDocumentFragment();
-
 	const link = activeDocument.createElement('a');
 	link.href = 'https://github.com/snezhig/obsidian-front-matter-title';
 	link.textContent = t('Front matter title plugin');
 	link.target = '_blank';
 
-	desc1.append(
-		'Allows you to use the ',
-		link,
-		' with folder notes. It allows you to set the folder name to some name you set in the front matter.',
+	const desc1 = tDom(
+		'Allows you to use the li...#11733a',
+		{ link },
 	);
 
 	const fmtpSetting = new Setting(containerEl)

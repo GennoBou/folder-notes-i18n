@@ -356,5 +356,6 @@
   "Remove the collapse icon...#7bae17": "Remove the collapse icon next to the folder name for folder notes when they only contain the folder note itself",
   "Choose if the collapsed...#8744fa": "Choose if the collapsed condition should be stored until you restart Obsidian",
   "Pattern": "Pattern",
-  "Default": "Default"
+  "Default": "Default",
+  "Allows you to use the li...#11733a": "Allows you to use the {link} with folder notes. It allows you to set the folder name to some name you set in the front matter."
 }
