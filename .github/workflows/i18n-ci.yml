@@ -35,8 +35,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
       # パッケージマネージャーの自動セットアップ
       - name: Setup pnpm

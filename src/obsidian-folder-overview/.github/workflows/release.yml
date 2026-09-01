@@ -1,0 +1,38 @@
+name: Create Plugin Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to build"
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Prepare files for release
+        run: |
+          mkdir -p release
+          cp main.js styles.css manifest.json release/
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          artifacts: "release/main.js,release/styles.css,release/manifest.json"
+          token: ${{ secrets.PAT }}
+          tag: ${{ github.event.inputs.tag }}
+
+      - name: Cleanup main.js
+        run: |
+          rm -f main.js
+          echo "main.js has been deleted after release."
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "Remove main.js" || echo "No changes to commit"
+          git push origin main
