@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import { TFile, TFolder, Notice, type TAbstractFile } from 'obsidian';
 import type FolderNotesPlugin from 'src/main';
 import {
@@ -335,7 +336,7 @@ async function renameFolderOnFileRename(
 
 	if (plugin.app.vault.getAbstractFileByPath(newFolderPath)) {
 		await plugin.app.fileManager.renameFile(file, oldPath);
-		new Notice('A folder with the same name already exists');
+		new Notice(t('A folder with the same name already exists'));
 		return;
 	}
 	plugin.app.fileManager.renameFile(oldFolder, newFolderPath);

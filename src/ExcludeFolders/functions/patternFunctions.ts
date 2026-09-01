@@ -1,3 +1,4 @@
+import { t } from 'src/i18n';
 import type FolderNotesPlugin from '../../main';
 import type { ExcludePattern } from '../ExcludePattern';
 import { Setting, Platform } from 'obsidian';
@@ -105,7 +106,7 @@ export function addExcludePatternListItem(
 	});
 	setting.addButton((cb) => {
 		cb.setIcon('edit');
-		cb.setTooltip('Edit pattern');
+		cb.setTooltip(t('Edit pattern'));
 		cb.onClick(() => {
 			new PatternSettings(plugin.app, plugin, pattern).open();
 		});
@@ -114,7 +115,7 @@ export function addExcludePatternListItem(
 	if (Platform.isDesktop || Platform.isTablet) {
 		setting.addButton((cb) => {
 			cb.setIcon('up-chevron-glyph');
-			cb.setTooltip('Move up');
+			cb.setTooltip(t('Move up'));
 			cb.onClick(() => {
 				if (pattern.position === 0) { return; }
 				pattern.position -= 1;
@@ -141,7 +142,7 @@ export function addExcludePatternListItem(
 
 		setting.addButton((cb) => {
 			cb.setIcon('down-chevron-glyph');
-			cb.setTooltip('Move down');
+			cb.setTooltip(t('Move down'));
 			cb.onClick(() => {
 				if (pattern.position === plugin.settings.excludeFolders.length - 1) {
 					return;
@@ -172,7 +173,7 @@ export function addExcludePatternListItem(
 
 	setting.addButton((cb) => {
 		cb.setIcon('trash-2');
-		cb.setTooltip('Delete pattern');
+		cb.setTooltip(t('Delete pattern'));
 		cb.onClick(() => {
 			void deletePattern(plugin, pattern);
 			setting.clear();

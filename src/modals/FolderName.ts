@@ -1,3 +1,4 @@
+import { t } from 'src/i18n';
 import { Modal, Setting, type App, type TFolder } from 'obsidian';
 import type FolderNotesPlugin from '../main';
 export default class FolderNameModal extends Modal {
@@ -19,9 +20,9 @@ export default class FolderNameModal extends Modal {
 				this.close();
 			}
 		});
-		contentEl.createEl('h2', { text: 'Folder name' });
+		contentEl.createEl('h2', { text: t('Folder name') });
 		new Setting(contentEl)
-			.setName('Enter the name of the folder')
+			.setName(t('Enter the name of the folder'))
 			.addText((text) =>
 				text
 					.setValue(this.folder.name.replace(this.plugin.settings.folderNoteType, ''))

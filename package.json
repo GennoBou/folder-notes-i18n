@@ -10,7 +10,8 @@
 		"fv-build": "tsc -noEmit -skipLibCheck && node ./src/obsidian-folder-overview/esbuild.config.mjs production",
 		"version": "node version-bump.mjs && git add manifest.json versions.json",
 		"folder-overview": "node ./src/obsidian-folder-overview/esbuild.config.mjs",
-		"fv-dev": "npm run folder-overview"
+		"fv-dev": "npm run folder-overview",
+		"check-i18n": "node scripts/check-i18n.mjs"
 	},
 	"keywords": [],
 	"author": "Lost Paul",

@@ -1,3 +1,4 @@
+import { t } from 'src/i18n';
 import type FolderNotesPlugin from '../../main';
 import { Setting } from 'obsidian';
 import type { SettingsTab } from '../../settings/SettingsTab';
@@ -111,7 +112,7 @@ export function addWhitelistedPatternListItem(
 	});
 	setting.addButton((cb) => {
 		cb.setIcon('edit');
-		cb.setTooltip('Edit pattern');
+		cb.setTooltip(t('Edit pattern'));
 		cb.onClick(() => {
 			new WhitelistPatternSettings(plugin.app, plugin, pattern).open();
 		});
@@ -119,7 +120,7 @@ export function addWhitelistedPatternListItem(
 
 	setting.addButton((cb) => {
 		cb.setIcon('up-chevron-glyph');
-		cb.setTooltip('Move up');
+		cb.setTooltip(t('Move up'));
 		cb.onClick(() => {
 			if (pattern.position === 0) { return; }
 			pattern.position -= 1;
@@ -145,7 +146,7 @@ export function addWhitelistedPatternListItem(
 
 	setting.addButton((cb) => {
 		cb.setIcon('down-chevron-glyph');
-		cb.setTooltip('Move down');
+		cb.setTooltip(t('Move down'));
 		cb.onClick(() => {
 			if (pattern.position === plugin.settings.whitelistFolders.length - 1) {
 				return;

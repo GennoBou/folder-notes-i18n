@@ -1,3 +1,4 @@
+import { t } from 'src/i18n';
 import {
 	Notice, PluginSettingTab, TFile,
 	TFolder, type App, type MarkdownPostProcessorContext,
@@ -292,7 +293,7 @@ export class SettingsTab extends PluginSettingTab {
 		const tabBar = containerEl.createEl('nav', { cls: 'fn-settings-tab-bar' });
 		for (const [tabId, tabInfo] of Object.entries(settingsTab.TABS)) {
 			const tabEl = tabBar.createEl('div', { cls: 'fn-settings-tab' });
-			tabEl.createEl('div', { cls: 'fn-settings-tab-name', text: tabInfo.name });
+			tabEl.createEl('div', { cls: 'fn-settings-tab-name', text: t(tabInfo.name) });
 			if (
 				plugin &&
 				plugin.settings.settingsTab.toLocaleLowerCase() ===
@@ -323,7 +324,7 @@ export class SettingsTab extends PluginSettingTab {
 	}
 
 	renameFolderNotes(): void {
-		new Notice('Starting to update folder notes...');
+		new Notice(t('Starting to update folder notes...'));
 		const oldTemplate = this.plugin.settings.oldFolderNoteName ?? '{{folder_name}}';
 
 		for (const folder of this.app.vault.getAllLoadedFiles()) {
@@ -359,11 +360,11 @@ export class SettingsTab extends PluginSettingTab {
 
 		this.plugin.settings.oldFolderNoteName = this.plugin.settings.folderNoteName;
 		void this.plugin.saveSettings();
-		new Notice('Finished updating folder notes');
+		new Notice(t('Finished updating folder notes'));
 	}
 
 	switchStorageLocation(oldMethod: string): void {
-		new Notice('Starting to switch storage location...');
+		new Notice(t('Starting to switch storage location...'));
 		this.app.vault.getAllLoadedFiles().forEach((file) => {
 			if (file instanceof TFolder) {
 				const folderNote = getFolderNote(this.plugin, file.path, oldMethod);
@@ -387,7 +388,7 @@ export class SettingsTab extends PluginSettingTab {
 				}
 			}
 		});
-		new Notice('Finished switching storage location');
+		new Notice(t('Finished switching storage location'));
 	}
 
 	onClose(): void {

@@ -1,3 +1,4 @@
+import { t } from 'src/i18n';
 // Credits go to Liam's Periodic Notes Plugin: https://github.com/liamcain/obsidian-periodic-notes and https://github.com/SilentVoid13/Templater
 
 import { AbstractInputSuggest, TFolder, type TAbstractFile } from 'obsidian';
@@ -24,9 +25,9 @@ export class FolderSuggest extends AbstractInputSuggest<TFolder> {
 	get_error_msg(mode: FileSuggestMode): string {
 		switch (mode) {
 			case FileSuggestMode.TemplateFiles:
-				return 'Templates folder doesn\'t exist';
+				return t('Templates folder doesn t...#fbd051');
 			case FileSuggestMode.ScriptFiles:
-				return 'User Scripts folder doesn\'t exist';
+				return t('User Scripts folder does...#445e1b');
 		}
 	}
 

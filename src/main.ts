@@ -1,3 +1,4 @@
+import { t } from './i18n';
 import {
 	type App, type TAbstractFile,
 	type MarkdownPostProcessorContext,
@@ -152,7 +153,7 @@ export default class FolderNotesPlugin extends Plugin {
 
 		this.registerEvent(this.app.vault.on('create', (file: TAbstractFile) => {
 			handleCreate(file, this).catch((err) => {
-				console.error(err); new Notice('Error handling file creation');
+				console.error(err); new Notice(t('Error handling file creation'));
 			});
 			this.handleVaultChange();
 		}));
@@ -527,7 +528,7 @@ export default class FolderNotesPlugin extends Plugin {
 			}
 		} catch (e) {
 			// eslint-disable-next-line max-len
-			new Notice('Error creating folder overview (folder notes plugin) - check console for more details');
+			new Notice(t('Error creating folder ov...#02cade'));
 			console.error(e);
 		}
 	}

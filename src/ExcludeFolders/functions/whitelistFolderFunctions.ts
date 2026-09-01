@@ -1,3 +1,4 @@
+import { t } from 'src/i18n';
 import type FolderNotesPlugin from '../../main';
 import { getFolderNameFromPathString, getFolderPathFromString } from '../../functions/utils';
 import type { WhitelistedFolder } from '../WhitelistFolder';
@@ -133,7 +134,7 @@ export function addWhitelistFolderListItem(
 			true,
 		);
 		cb.containerEl.addClass('fn-exclude-folder-path');
-		cb.setPlaceholder('Folder path');
+		cb.setPlaceholder(t('Folder path'));
 		cb.setValue(whitelistedFolder.path);
 		cb.onChange((value) => {
 			if (value.startsWith('{regex}') || value.includes('*')) {

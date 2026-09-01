@@ -1,3 +1,4 @@
+import { t } from 'src/i18n';
 import { TFile, TFolder, Vault, AbstractInputSuggest, type TAbstractFile } from 'obsidian';
 import type FolderNotesPlugin from '../main';
 import { getTemplatePlugins } from 'src/template';
@@ -27,9 +28,9 @@ export class TemplateSuggest extends AbstractInputSuggest<TemplateSuggestion> {
 	get_error_msg(mode: FileSuggestMode): string {
 		switch (mode) {
 			case FileSuggestMode.TemplateFiles:
-				return 'Templates folder doesn\'t exist';
+				return t('Templates folder doesn t...#fbd051');
 			case FileSuggestMode.ScriptFiles:
-				return 'User Scripts folder doesn\'t exist';
+				return t('User Scripts folder does...#445e1b');
 		}
 	}
 
@@ -56,7 +57,7 @@ export class TemplateSuggest extends AbstractInputSuggest<TemplateSuggestion> {
 						{
 							path: '',
 							name:
-								'You need to set the Templates folder in the Templater settings first.',
+								t('You need to set the Temp...#c494e8'),
 						},
 					];
 				}

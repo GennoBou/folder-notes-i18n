@@ -1,3 +1,4 @@
+import { t } from 'src/i18n';
 import { Modal, type App, type TFolder } from 'obsidian';
 import type FolderNotesPlugin from '../main';
 export default class NewFolderNameModal extends Modal {
@@ -24,13 +25,13 @@ export default class NewFolderNameModal extends Modal {
 		this.modalEl.classList.add('mod-file-rename');
 		const modalTitle = this.modalEl.querySelector('div.modal-title');
 		if (modalTitle) {
-			modalTitle.textContent = 'Folder title';
+			modalTitle.textContent = t('Folder title');
 		}
 
 		const textarea = contentEl.createEl('textarea', {
 			text: this.folder.name.replace(this.plugin.settings.folderNoteType, ''),
 			attr: {
-				placeholder: 'Enter the name of the folder',
+				placeholder: t('Enter the name of the folder'),
 				rows: '1',
 				spellcheck: 'false',
 				class: 'rename-textarea',
@@ -44,7 +45,7 @@ export default class NewFolderNameModal extends Modal {
 		textarea.focus();
 
 		const buttonContainer = this.modalEl.createDiv({ cls: 'modal-button-container' });
-		const saveButton = buttonContainer.createEl('button', { text: 'Save', cls: 'mod-cta' });
+		const saveButton = buttonContainer.createEl('button', { text: t('Save'), cls: 'mod-cta' });
 		saveButton.addEventListener('click', async () => {
 			this.saveFolderName();
 			this.close();

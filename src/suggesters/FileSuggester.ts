@@ -1,3 +1,4 @@
+import { t } from 'src/i18n';
 import { AbstractInputSuggest, type TAbstractFile, TFile } from 'obsidian';
 import type FolderNotesPlugin from '../main';
 export enum FileSuggestMode {
@@ -19,9 +20,9 @@ export class FileSuggest extends AbstractInputSuggest<TFile> {
 	get_error_msg(mode: FileSuggestMode): string {
 		switch (mode) {
 			case FileSuggestMode.TemplateFiles:
-				return 'Templates folder doesn\'t exist';
+				return t('Templates folder doesn t...#fbd051');
 			case FileSuggestMode.ScriptFiles:
-				return 'User Scripts folder doesn\'t exist';
+				return t('User Scripts folder does...#445e1b');
 		}
 	}
 

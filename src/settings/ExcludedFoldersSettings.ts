@@ -1,3 +1,4 @@
+import { t } from 'src/i18n';
 import {
 	addExcludeFolderListItem,
 	addExcludedFolder,
@@ -16,32 +17,32 @@ export async function renderExcludeFolders(settingsTab: SettingsTab): Promise<vo
 	const manageExcluded = new Setting(containerEl)
 		.setHeading()
 		.setClass('fn-excluded-folder-heading')
-		.setName('Manage excluded folders');
+		.setName(t('Manage excluded folders'));
 	const desc3 = document.createDocumentFragment();
 	desc3.append(
-		'Add {regex} at the beginning of the folder name to use a regex pattern.',
+		t('Add regex at the beginni...#24a3c9'),
 		desc3.createEl('br'),
-		'Use * before and after to exclude folders that include the name between the *s.',
+		t('Use before and after to...#1e39d9'),
 		desc3.createEl('br'),
-		'Use * before the folder name to exclude folders that end with the folder name.',
+		t('Use before the folder na...#b22b39'),
 		desc3.createEl('br'),
-		'Use * after the folder name to exclude folders that start with the folder name.',
+		t('Use after the folder nam...#914f27'),
 	);
 	manageExcluded.setDesc(desc3);
 
-	manageExcluded.infoEl.appendText('The regexes and wildcards are only for the folder name, not the path.');
+	manageExcluded.infoEl.appendText(t('The regexes and wildcard...#f8e9a2'));
 	manageExcluded.infoEl.createEl('br');
 
-	manageExcluded.infoEl.appendText('If you want to switch to a folder path delete the pattern first.');
+	manageExcluded.infoEl.appendText(t('If you want to switch to...#ca8ef9'));
 
 	manageExcluded.infoEl.style.color = settingsTab.app.vault.getConfig('accentColor') as string || '#7d5bed';
 
 
 	new Setting(containerEl)
-		.setName('Whitelisted folders')
-		.setDesc('Folders that override the excluded folders/patterns')
+		.setName(t('Whitelisted folders'))
+		.setDesc(t('Folders that override the excluded folders/patterns'))
 		.addButton((cb) => {
-			cb.setButtonText('Manage');
+			cb.setButtonText(t('Manage'));
 			cb.setCta();
 			cb.onClick(async () => {
 				new WhitelistedFoldersSettings(settingsTab).open();
@@ -49,9 +50,9 @@ export async function renderExcludeFolders(settingsTab: SettingsTab): Promise<vo
 		});
 
 	new Setting(containerEl)
-		.setName('Exclude folder default settings')
+		.setName(t('Exclude folder default settings'))
 		.addButton((cb) => {
-			cb.setButtonText('Manage');
+			cb.setButtonText(t('Manage'));
 			cb.setCta();
 			cb.onClick(async () => {
 				new ExcludedFolderSettings(
@@ -63,9 +64,9 @@ export async function renderExcludeFolders(settingsTab: SettingsTab): Promise<vo
 		});
 
 	new Setting(containerEl)
-		.setName('Exclude pattern default settings')
+		.setName(t('Exclude pattern default settings'))
 		.addButton((cb) => {
-			cb.setButtonText('Manage');
+			cb.setButtonText(t('Manage'));
 			cb.setCta();
 			cb.onClick(async () => {
 				new PatternSettings(
@@ -78,12 +79,12 @@ export async function renderExcludeFolders(settingsTab: SettingsTab): Promise<vo
 
 
 	new Setting(containerEl)
-		.setName('Add excluded folder')
+		.setName(t('Add excluded folder'))
 		.setClass('add-exclude-folder-item')
 		.addButton((cb) => {
 			cb.setIcon('plus');
 			cb.setClass('add-exclude-folder');
-			cb.setTooltip('Add excluded folder');
+			cb.setTooltip(t('Add excluded folder'));
 			cb.onClick(() => {
 				const excludedFolder = new ExcludedFolder(
 					'',
