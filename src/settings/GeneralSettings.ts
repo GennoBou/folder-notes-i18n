@@ -33,12 +33,12 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 					debounceTimer = window.setTimeout(() => {
 						if (!value.includes('{{folder_name}}')) {
 							if (!settingsTab.showFolderNameInTabTitleSetting) {
-								settingsTab.display();
+								settingsTab.refresh();
 								settingsTab.showFolderNameInTabTitleSetting = true;
 							}
 						} else {
 							if (settingsTab.showFolderNameInTabTitleSetting) {
-								settingsTab.display();
+								settingsTab.refresh();
 								settingsTab.showFolderNameInTabTitleSetting = false;
 							}
 						}
@@ -78,7 +78,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 						}
 						settingsTab.plugin.settings.tabManagerEnabled = value;
 						await settingsTab.plugin.saveSettings();
-						settingsTab.display();
+						settingsTab.refresh();
 					}),
 			);
 	}
@@ -123,7 +123,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 				.onChange(async (value: string) => {
 					settingsTab.plugin.settings.folderNoteType = value as '.md' | '.canvas' | '.ask';
 					void settingsTab.plugin.saveSettings();
-					void settingsTab.display();
+					settingsTab.refresh();
 				});
 		});
 
@@ -142,7 +142,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 	list.on('update', (values: unknown) => {
 		settingsTab.plugin.settings.supportedFileTypes = values as string[];
 		void settingsTab.plugin.saveSettings();
-		void settingsTab.display();
+		settingsTab.refresh();
 	});
 
 	if (
@@ -176,7 +176,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 					).open();
 				}
 				await list.addValue(value.toLowerCase());
-				void settingsTab.display();
+				settingsTab.refresh();
 				void settingsTab.plugin.saveSettings();
 			});
 		});
@@ -212,7 +212,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 				if (value.trim() === '') {
 					settingsTab.plugin.settings.templatePath = '';
 					await settingsTab.plugin.saveSettings();
-					settingsTab.display();
+					settingsTab.refresh();
 					return;
 				}
 			});
@@ -234,7 +234,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 					}
 					settingsTab.plugin.settings.storageLocation = value;
 					await settingsTab.plugin.saveSettings();
-					settingsTab.display();
+					settingsTab.refresh();
 					refreshAllFolderStyles(undefined, settingsTab.plugin);
 				}),
 		)
@@ -305,7 +305,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 					settingsTab.plugin.settings.ctrlKey = value === 'ctrl';
 					settingsTab.plugin.settings.altKey = value === 'alt';
 					await settingsTab.plugin.saveSettings();
-					settingsTab.display();
+					settingsTab.refresh();
 				});
 			});
 
@@ -333,7 +333,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 					settingsTab.plugin.settings.openWithCtrl = value === 'ctrl';
 					settingsTab.plugin.settings.openWithAlt = value === 'alt';
 					await settingsTab.plugin.saveSettings();
-					settingsTab.display();
+					settingsTab.refresh();
 				});
 			});
 	}
@@ -349,7 +349,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 				.onChange(async (value) => {
 					settingsTab.plugin.settings.showDeleteConfirmation = value;
 					await settingsTab.plugin.saveSettings();
-					settingsTab.display();
+					settingsTab.refresh();
 				}),
 		);
 
@@ -365,7 +365,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 				const v = value as 'trash' | 'delete' | 'obsidianTrash';
 				settingsTab.plugin.settings.deleteFilesAction = v;
 				await settingsTab.plugin.saveSettings();
-				settingsTab.display();
+				settingsTab.refresh();
 			});
 		});
 
@@ -379,7 +379,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 				.onChange(async (value) => {
 					settingsTab.plugin.settings.openInNewTab = value;
 					await settingsTab.plugin.saveSettings();
-					settingsTab.display();
+					settingsTab.refresh();
 				}),
 		);
 		setting3.infoEl.appendText(t('Requires a restart to take effect'));
@@ -396,7 +396,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 					.onChange(async (value) => {
 						settingsTab.plugin.settings.focusExistingTab = value;
 						await settingsTab.plugin.saveSettings();
-						settingsTab.display();
+						settingsTab.refresh();
 					}),
 			);
 	}
@@ -410,7 +410,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 				.onChange(async (value) => {
 					settingsTab.plugin.settings.syncFolderName = value;
 					await settingsTab.plugin.saveSettings();
-					settingsTab.display();
+					settingsTab.refresh();
 				}),
 		);
 
@@ -436,7 +436,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 				.onChange(async (value) => {
 					settingsTab.plugin.settings.autoCreate = value;
 					await settingsTab.plugin.saveSettings();
-					settingsTab.display();
+					settingsTab.refresh();
 				}),
 		);
 
@@ -450,7 +450,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 					.onChange(async (value) => {
 						settingsTab.plugin.settings.autoCreateFocusFiles = value;
 						await settingsTab.plugin.saveSettings();
-						settingsTab.display();
+						settingsTab.refresh();
 					}),
 			);
 
@@ -463,7 +463,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 					.onChange(async (value) => {
 						settingsTab.plugin.settings.autoCreateForAttachmentFolder = value;
 						await settingsTab.plugin.saveSettings();
-						settingsTab.display();
+						settingsTab.refresh();
 					}),
 			);
 	}
@@ -477,7 +477,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 				.onChange(async (value) => {
 					settingsTab.plugin.settings.autoCreateForFiles = value;
 					await settingsTab.plugin.saveSettings();
-					settingsTab.display();
+					settingsTab.refresh();
 				}),
 		);
 
@@ -524,7 +524,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 						settingsTab.plugin.fmtpHandler =
 							new FrontMatterTitlePluginHandler(settingsTab.plugin);
 					}
-					settingsTab.display();
+					settingsTab.refresh();
 				}),
 		);
 	fmtpSetting.infoEl.appendText(t('Requires a restart to take effect'));
@@ -541,7 +541,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 				.onChange(async (value) => {
 					settingsTab.plugin.settings.persistentSettingsTab.afterRestart = value;
 					await settingsTab.plugin.saveSettings();
-					settingsTab.display();
+					settingsTab.refresh();
 				}),
 		);
 
@@ -554,7 +554,7 @@ export async function renderGeneral(settingsTab: SettingsTab): Promise<void> {
 				.onChange(async (value) => {
 					settingsTab.plugin.settings.persistentSettingsTab.afterChangingTab = value;
 					await settingsTab.plugin.saveSettings();
-					settingsTab.display();
+					settingsTab.refresh();
 				}),
 		);
 }

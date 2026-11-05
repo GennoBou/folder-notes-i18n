@@ -286,7 +286,7 @@ export function addExcludeFolderListItem(
 						updateExcludedFolder(plugin, oldExcludedFolder, oldExcludedFolder);
 					}
 				}
-				settings.display();
+				settings.refresh();
 			});
 		});
 
@@ -312,7 +312,7 @@ export function addExcludeFolderListItem(
 					}
 				}
 
-				settings.display();
+				settings.refresh();
 			});
 		});
 	}

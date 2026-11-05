@@ -14,6 +14,7 @@ import {
 	markFileAsFolderNote, unmarkFileAsFolderNote,
 	unmarkFolderAsFolderNote, markFolderWithFolderNoteClasses,
 	hideFolderNoteInFileExplorer, removeActiveFolder, setActiveFolder,
+	updateCSSClassesForFolder,
 } from 'src/functions/styleFunctions';
 import {
 	getFolderPathFromString, removeExtension, getFileNameFromPathString,
@@ -47,6 +48,10 @@ export function handleRename(
 		folder = file;
 		plugin.tabManager.updateTab(folder.path);
 		updateExcludedFolderPath(folder, oldPath, plugin);
+		// Wait for the file explorer to process the rename.
+		window.setTimeout(() => {
+			void updateCSSClassesForFolder(file.path, plugin);
+		});
 		if (isFolderRename(folder, oldPath)) {
 			handleFolderRename(folder, oldPath, plugin);
 			return;
@@ -281,7 +286,7 @@ export async function handleFileRename(
 
 	// Handle folder note removal
 	if (shouldRemoveFolderNoteClasses(excludedFolder, folderName, newFolder)) {
-		handleFolderNoteRemoval(file, newFolder, plugin);
+		handleFolderNoteRemoval(file, newFolder, excludedFolder, plugin);
 	}
 
 	// Early return if sync is disabled
@@ -347,25 +352,22 @@ function updateExcludedFolderPath(
 	oldPath: string,
 	plugin: FolderNotesPlugin,
 ): void {
-	const excludedFolders = plugin.settings.excludeFolders.filter(
-		(excludedFolder) => excludedFolder.path?.includes(oldPath),
-	);
+	const oldPathPrefix = `${oldPath}/`;
+	let pathsChanged = false;
 
-	excludedFolders.forEach((excludedFolder) => {
-		if (excludedFolder.path === oldPath) {
+	plugin.settings.excludeFolders.forEach((excludedFolder) => {
+		const { path } = excludedFolder;
+		if (path === oldPath) {
 			excludedFolder.path = folder.path;
+		} else if (path?.startsWith(oldPathPrefix)) {
+			excludedFolder.path = folder.path + path.slice(oldPath.length);
+		} else {
 			return;
 		}
-		if (!excludedFolder.path) return;
-		const folders = excludedFolder.path.split('/');
-		if (folders.length < 1) {
-			folders.push(excludedFolder.path);
-		}
-
-		folders[folders.indexOf(folder.name)] = folder.name;
-		excludedFolder.path = folders.join('/');
+		pathsChanged = true;
 	});
-	plugin.saveSettings();
+
+	if (pathsChanged) void plugin.saveSettings(false);
 }
 
 
@@ -400,10 +402,14 @@ function handleFolderNoteCreation(
 function handleFolderNoteRemoval(
 	file: TFile,
 	newFolder: TAbstractFile | null,
+	excludedFolder: ExcludedFolder | undefined,
 	plugin: FolderNotesPlugin,
 ): void {
 	removeCSSClassFromFileExplorerEL(file.path, 'is-folder-note', false, plugin);
-	removeCSSClassFromFileExplorerEL(newFolder?.path || '', 'has-folder-note', false, plugin);
+	if (!newFolder) return;
+	if (excludedFolder?.disableFolderNote || !getFolderNote(plugin, newFolder.path)) {
+		removeCSSClassFromFileExplorerEL(newFolder.path, 'has-folder-note', false, plugin);
+	}
 }
 
 function handleSameFolderRename(
