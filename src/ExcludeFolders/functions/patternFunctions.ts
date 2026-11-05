@@ -136,7 +136,7 @@ export function addExcludePatternListItem(
 						updateExcludedFolder(plugin, oldPattern, oldPattern);
 					}
 				}
-				settings.display();
+				settings.refresh();
 			});
 		});
 
@@ -166,7 +166,7 @@ export function addExcludePatternListItem(
 						updateExcludedFolder(plugin, oldPattern, oldPattern);
 					}
 				}
-				settings.display();
+				settings.refresh();
 			});
 		});
 	}

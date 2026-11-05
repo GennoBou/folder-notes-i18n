@@ -6,9 +6,39 @@ on:
     tags:
       - "[0-9]+.[0-9]+.[0-9]+-[0-9]+-beta"
   workflow_dispatch:
+    inputs:
+      discord_test:
+        description: "Only post a test announcement to the beta Discord channel"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
 
 jobs:
+  discord-test:
+    if: ${{ inputs.discord_test }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Post test announcement
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_BETA }}
+          DISCORD_ROLE: ${{ vars.DISCORD_ROLE_BETA }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK" ]; then echo "::error::The DISCORD_WEBHOOK_BETA secret is not set"; exit 1; fi
+          VERSION=$(awk '$1 == "##" { print $2; exit }' release-notes/beta.md)
+          NOTES=$(awk '$1 == "##" { n++; next } n == 1' release-notes/beta.md \
+            | sed -E "s|#([0-9]+)|[#\1](https://github.com/$GITHUB_REPOSITORY/issues/\1)|g")
+          jq -n --arg title "Test: Folder Notes ${VERSION%-beta} (beta)" \
+            --arg url "https://github.com/$GITHUB_REPOSITORY/releases" \
+            --arg notes "$NOTES" --arg role "$DISCORD_ROLE" --argjson ping true \
+            '{embeds: [{title: $title, url: $url, description: $notes[:4000], color: 15105570}]} + (if $role == "" then {} else {content: "<@&\($role)>", allowed_mentions: {roles: (if $ping then [$role] else [] end)}} end)' \
+            | curl -fsS -H "Content-Type: application/json" -d @- "$DISCORD_WEBHOOK"
+
   build:
+    if: ${{ !inputs.discord_test }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current branch
@@ -36,6 +66,20 @@ jobs:
           VERSION=${{ env.VERSION }}
           RELEASE_VERSION=${VERSION%-beta}
           echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
+
+      # Use the section for this version in release-notes/beta.md; fail if it is missing
+      - name: Write release notes
+        run: |
+          awk -v v="$VERSION" '$1 == "##" { p = ($2 == v); next } p' release-notes/beta.md > "$RUNNER_TEMP/release-notes.md" 2>/dev/null \
+            || : > "$RUNNER_TEMP/release-notes.md"
+          if [ -z "$(sed '/<!--/,/-->/d' "$RUNNER_TEMP/release-notes.md" | tr -d '[:space:]')" ]; then
+            echo "::error::Add a \"## $VERSION\" section with release notes to release-notes/beta.md, then tag again."
+            if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+              git push origin --delete "$GITHUB_REF"
+              echo "::error::The tag was deleted on GitHub. Delete it locally too: git tag -d $VERSION"
+            fi
+            exit 1
+          fi
 
       # Update manifest-beta.json in main branch
       - name: Checkout main branch to update manifest-beta.json
@@ -76,6 +120,25 @@ jobs:
         with:
           name: Beta release ${{ env.RELEASE_NAME }}
           prerelease: true
+          bodyFile: ${{ runner.temp }}/release-notes.md
+          allowUpdates: true
+          omitBodyDuringUpdate: true
           artifacts: "main.js,manifest.json,styles.css"
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ env.VERSION }}
+
+      - name: Announce on Discord
+        continue-on-error: true
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_BETA }}
+          DISCORD_ROLE: ${{ vars.DISCORD_ROLE_BETA }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK" ]; then echo "No DISCORD_WEBHOOK_BETA secret set, skipping"; exit 0; fi
+          VERSION=${GITHUB_REF#refs/tags/}
+          NOTES=$(sed '/<!--/,/-->/d' "$RUNNER_TEMP/release-notes.md" \
+            | sed -E "s|#([0-9]+)|[#\1](https://github.com/$GITHUB_REPOSITORY/issues/\1)|g")
+          jq -n --arg title "Folder Notes ${VERSION%-beta} (beta)" \
+            --arg url "https://github.com/$GITHUB_REPOSITORY/releases/tag/$VERSION" \
+            --arg notes "$NOTES" --arg role "$DISCORD_ROLE" --argjson ping true \
+            '{embeds: [{title: $title, url: $url, description: $notes[:4000], color: 15105570}]} + (if $role == "" then {} else {content: "<@&\($role)>", allowed_mentions: {roles: (if $ping then [$role] else [] end)}} end)' \
+            | curl -fsS -H "Content-Type: application/json" -d @- "$DISCORD_WEBHOOK"

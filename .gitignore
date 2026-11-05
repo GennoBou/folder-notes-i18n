@@ -19,8 +19,11 @@ main.js
 data.json
 .obsidian
 
+# Generated development vaults
+/dev-vaults/
+
 # Exclude macOS Finder (System Explorer) View States
 .DS_Store
 
 venv
-.serena
+.serena

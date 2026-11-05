@@ -1,5 +1,6 @@
 import { t } from 'src/i18n';
-import { Modal, Setting, Notice, type App, type SettingTab } from 'obsidian';
+import { Modal, Setting, Notice, type App } from 'obsidian';
+import type { SettingsTab } from 'src/settings/SettingsTab';
 import type FolderNotesPlugin from '../main';
 import type { ListComponent } from 'src/functions/ListComponent';
 
@@ -8,8 +9,8 @@ export default class AddSupportedFileModal extends Modal {
 	app: App;
 	name: string;
 	list: ListComponent;
-	settingsTab: SettingTab;
-	constructor(app: App, plugin: FolderNotesPlugin, settingsTab: SettingTab, list: ListComponent) {
+	settingsTab: SettingsTab;
+	constructor(app: App, plugin: FolderNotesPlugin, settingsTab: SettingsTab, list: ListComponent) {
 		super(app);
 		this.plugin = plugin;
 		this.app = app;
@@ -46,7 +47,7 @@ export default class AddSupportedFileModal extends Modal {
 		const { contentEl } = this;
 		if (this.name === '') {
 			contentEl.empty();
-			this.settingsTab.display();
+			this.settingsTab.refresh();
 		} else if (this.plugin.settings.supportedFileTypes.includes(this.name.toLowerCase())) {
 			new Notice(t('This extension is already supported'));
 			return;
@@ -54,7 +55,7 @@ export default class AddSupportedFileModal extends Modal {
 			// Run async operations without returning a Promise from onClose
 			void (async (): Promise<void> => {
 				await this.list.addValue(this.name.toLowerCase());
-				this.settingsTab.display();
+				this.settingsTab.refresh();
 				await this.plugin.saveSettings();
 				contentEl.empty();
 			})();
