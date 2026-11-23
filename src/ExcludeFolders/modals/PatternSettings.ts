@@ -25,6 +25,19 @@ export default class PatternSettings extends Modal {
 		contentEl.createEl('h2', { text: t('Pattern settings') });
 
 		new Setting(contentEl)
+			.setName(t('Include subfolders'))
+			// eslint-disable-next-line max-len
+			.setDesc(t('Choose if the subfolders of every folder that matches this pattern should also be excluded'))
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.pattern.includeSubfolders ?? false)
+					.onChange(async (value) => {
+						this.pattern.includeSubfolders = value;
+						await this.plugin.saveSettings(true);
+					}),
+			);
+
+		new Setting(contentEl)
 			.setName(t('Disable folder name sync'))
 
 			.setDesc(t('Choose if the folder nam...#6b36d4'))

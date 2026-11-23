@@ -49,6 +49,7 @@
   "Collapse folder when opening folder note": "Collapse folder when opening folder note",
   "Choose if the folder sho...#7f831f": "Choose if the folder should be collapsed when the folder note is opened",
   "Pattern settings": "Pattern settings",
+  "Choose if the subfolders of every folder that matches this pattern should also be excluded": "Choose if the subfolders of every folder that matches this pattern should also be excluded",
   "Choose if the folder nam...#6b36d4": "Choose if the folder name should be renamed when the file name has been changed",
   "Choose if a folder note...#a3d427": "Choose if a folder note should be created when a new folder is created that matches this pattern",
   "Whitelisted folder settings": "Whitelisted folder settings",
