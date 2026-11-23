@@ -49,6 +49,7 @@
   "Collapse folder when opening folder note": "フォルダノートを開いた時にフォルダを折りたたむ",
   "Choose if the folder sho...#7f831f": "フォルダノートを開いた際にフォルダを折りたたむかどうかを選択します",
   "Pattern settings": "パターン設定",
+  "Choose if the subfolders of every folder that matches this pattern should also be excluded": "このパターンに一致するすべてのフォルダのサブフォルダも除外対象にするかどうかを選択します",
   "Choose if the folder nam...#6b36d4": "ファイル名が変更された際にフォルダ名を変更するかどうかを選択します",
   "Choose if a folder note...#a3d427": "このパターンに一致する新しいフォルダが作成された際にフォルダノートを作成するかどうかを選択します",
   "Whitelisted folder settings": "ホワイトリストフォルダ設定",
